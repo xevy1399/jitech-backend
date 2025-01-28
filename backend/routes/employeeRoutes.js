@@ -33,6 +33,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Check if employeeId exists
+router.get('/exists/:employeeId', async (req, res) => {
+  try {
+    const employee = await Employee.findOne({ employeeId: req.params.employeeId });
+    res.json(!!employee); // Returns true if an employee is found, false otherwise
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Delete an employee
 router.delete('/:id', async (req, res) => {
   try {
